@@ -176,7 +176,7 @@ button{cursor:pointer}
   </div>
   <nav id="app-nav">
     <button class="nav-btn active" data-tab="trips">Viajes</button>
-    <button class="nav-btn" data-tab="photos">Fotos</button>
+    <button class="nav-btn" data-tab="muro">Muro</button>
     <button class="nav-btn" data-tab="ranking">Ranking</button>
   </nav>
   <div id="main-content"></div>
@@ -203,7 +203,7 @@ let myName=localStorage.getItem("soltar-name")||"";
 function daysUntil(d){if(!d)return null;return Math.ceil((new Date(d)-new Date())/86400000);}
 function hypeScore(trip,members){if(!trip)return 0;const c=Object.values(trip.confirmed||{}).filter(Boolean).length;return Math.round((c/Math.max(Object.keys(members).length,1))*100);}
 function monthlySavings(b,d){if(!b||!d)return null;const m=(new Date(d)-new Date())/(86400000*30.44);return m<=0?null:Math.ceil(b/m);}
-function defaultState(){return{members:{},trips:[],tripIdeas:{},photos:[],voteLog:{}};}
+function defaultState(){return{members:{},trips:[],tripIdeas:{},muro:[],voteLog:{}};}
 function fmt(d){if(!d)return"";const[y,m,day]=d.split("-");return`${day}/${m}`;}
 function fmtFull(d){if(!d)return"";const[y,m,day]=d.split("-");return`${day}/${m}/${y.slice(2)}`;}
 function tripDisplay(t){if(t.dateFrom&&t.dateTo)return`${fmt(t.dateFrom)} → ${fmt(t.dateTo)}`;if(t.dateFrom)return fmtFull(t.dateFrom);return fmtFull(t.date||"");}
@@ -212,8 +212,6 @@ function tripStart(t){return t.dateFrom||t.date||"";}
 let STATE=null,currentTab="trips",showAddTrip=false,showAddIdea=null,editingTrip=null;
 let newTrip={name:"",dest:"",dateFrom:"",dateTo:"",emoji:"✈️",budget:""};
 let lastHash="";
-
-const PLACEHOLDERS=["https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80","https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=400&q=80","https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=400&q=80","https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=400&q=80"];
 
 function renderHeader(){
   if(!STATE||!myName)return;
@@ -231,7 +229,7 @@ function renderMain(){
   const suggestions=trips.filter(t=>t.status==="suggestion").sort((a,b)=>Object.values(b.confirmed||{}).filter(Boolean).length-Object.values(a.confirmed||{}).filter(Boolean).length);
   let html="";
   if(currentTab==="trips")html=buildTrips(confirmed,suggestions);
-  else if(currentTab==="photos")html=buildPhotos();
+  else if(currentTab==="muro")html=buildMuro();
   else if(currentTab==="ranking")html=buildRanking();
   document.getElementById("main-content").innerHTML=html;
   bindMainEvents();
@@ -333,7 +331,7 @@ function buildTripCard(trip,type){
         <div class="trip-dates">${tripDisplay(trip)}</div>
         ${isConf&&days!==null?`<div class="trip-days-left">${days<=0?"¡YA LLEGÓ!":days===1?"¡MAÑANA!":`${days} DÍAS`}</div>`:""}
       </div>
-      <span class="${isConf?"badge-confirmed":"badge-voting"}">${isConf?"OK":"${count}/5"}</span>
+      <span class="${isConf?"badge-confirmed":"badge-voting"}">${isConf?"OK":`${count}/5`}</span>
     </div>
     ${!isConf?`<div class="prog-wrap"><div class="prog-bg"><div class="prog-fill" style="width:${Math.min((count/5)*100,100)}%"></div></div><span class="prog-label">${count}/5</span></div>`:""}
     <div class="trip-avatars">${Object.entries(trip.confirmed||{}).filter(([,v])=>v).map(([id])=>`<span title="${STATE.members[id]?.name||""}">${STATE.members[id]?.avatar||"👤"}</span>`).join("")}${Object.entries(STATE.members).filter(([id,m])=>m.cagon&&m.cagonTrip===trip.id).map(()=>`<span style="opacity:.3">👻</span>`).join("")}</div>
@@ -387,17 +385,29 @@ function buildIdeaInput(tripId){
   </div>`;
 }
 
-// ── PHOTOS ────────────────────────────────────────────────────────────────────
-function buildPhotos(){
-  const photos=STATE.photos||[];
-  return`<div class="sec-label">Fotos del grupo</div>
-  <div class="upload-area" id="upload-area">
-    <span style="font-size:28px">📷</span>
-    <span style="font-size:12px;color:var(--gray5);font-weight:600;letter-spacing:.06em;text-transform:uppercase">Subir foto <span style="color:var(--accent)">+3 pts</span></span>
-    <input type="file" id="photo-input" accept="image/*" style="display:none"/>
+// ── MURO ─────────────────────────────────────────────────────────────────────
+function buildMuro(){
+  const posts=(STATE.muro||[]).slice().reverse();
+  return`<div class="sec-label">Muro del grupo</div>
+  <div style="padding:0 16px 14px">
+    <textarea class="app-input" id="muro-input" placeholder="Escribí algo al grupo..." rows="2" style="resize:none;line-height:1.5"></textarea>
+    <button class="btn-primary" style="width:100%;margin-top:8px" data-action="post-muro">PUBLICAR</button>
   </div>
-  ${!photos.length?PLACEHOLDERS.map(url=>`<div class="photo-card" style="margin-bottom:1px"><img src="${url}" class="photo-img" loading="lazy"/><div class="photo-overlay"><span style="font-size:12px;color:rgba(255,255,255,.7);font-weight:600;letter-spacing:.06em;text-transform:uppercase">Viaje anterior</span></div></div>`).join(""):""}
-  ${photos.map(p=>`<div class="photo-card" style="margin-bottom:1px"><img src="${p.url}" class="photo-img"/><div class="photo-overlay"><span style="font-size:12px;color:rgba(255,255,255,.7)">${STATE.members[p.uid]?.avatar||""} ${STATE.members[p.uid]?.name||""}</span></div></div>`).join("")}`;
+  ${!posts.length?`<div class="empty"><span style="font-size:32px">💬</span><span style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:.05em;text-transform:uppercase">Nada todavía</span><span style="color:var(--gray4);font-size:13px">Sé el primero en escribir algo</span></div>`:""}
+  ${posts.map(p=>{
+    const me=STATE.members[p.uid];
+    const d=new Date(p.ts);
+    const timeStr=`${d.getDate()}/${d.getMonth()+1} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+    return`<div style="border-bottom:1px solid var(--gray2);padding:14px 16px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+        <span style="font-size:20px">${me?.avatar||"👤"}</span>
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--white)">${me?.name||"Alguien"}</span>
+        <span style="font-size:11px;color:var(--gray4);margin-left:auto">${timeStr}</span>
+        ${p.uid===myId?`<button style="background:transparent;border:none;color:var(--gray4);font-size:12px;padding:0 2px" data-action="delete-post" data-post="${p.id}">✕</button>`:""}
+      </div>
+      <div style="font-size:14px;color:var(--gray6);line-height:1.5">${p.text}</div>
+    </div>`;
+  }).join("")}`;
 }
 
 // ── RANKING ───────────────────────────────────────────────────────────────────
@@ -406,8 +416,7 @@ function buildRanking(){
   return`<div class="sec-label">Ranking</div>
   <div class="pts-chips">
     <span class="pt-chip">✈️ 1ro en confirmar +10</span>
-    <span class="pt-chip">📸 Foto +3</span>
-    <span class="pt-chip">🗳️ Votar +1</span>
+    <span class="pt-chip">🗳️ Votar sugerencia +1</span>
   </div>
   ${lb.map(([id,m],i)=>`<div class="lb-row${i===0?" first":""}${id===myId?" me":""}">
     <div style="width:24px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;color:${i===0?"var(--accent)":"var(--gray4)"};flex-shrink:0">${i===0?"01":i===1?"02":i===2?"03":`0${i+1}`}</div>
@@ -446,13 +455,6 @@ function buildModal(){
 
 // ── EVENTS ────────────────────────────────────────────────────────────────────
 function bindMainEvents(){
-  document.getElementById("upload-area")?.addEventListener("click",()=>document.getElementById("photo-input")?.click());
-  document.getElementById("photo-input")?.addEventListener("change",e=>{
-    const file=e.target.files[0];if(!file)return;
-    const reader=new FileReader();
-    reader.onload=ev=>{update(s=>{s.photos.unshift({id:Date.now().toString(36),url:ev.target.result,uid:myId,uploadedAt:Date.now()});s.members[myId].points=(s.members[myId].points||0)+3;return s;});};
-    reader.readAsDataURL(file);
-  });
   document.querySelectorAll("#main-content [data-action]").forEach(el=>el.addEventListener("click",handleAction));
 }
 
@@ -469,7 +471,16 @@ function closeModal(){showAddTrip=false;editingTrip=null;newTrip={name:"",dest:"
 
 function handleAction(){
   const action=this.dataset.action,tripId=this.dataset.trip,ideaId=this.dataset.idea;
-  if(action==="show-add-trip"){showAddTrip=true;editingTrip=null;renderModal();}
+  if(action==="post-muro"){
+    const text=document.getElementById("muro-input")?.value.trim()||"";
+    if(!text)return;
+    update(s=>{if(!s.muro)s.muro=[];s.muro.push({id:Date.now().toString(36),text,uid:myId,ts:Date.now()});return s;});
+  }
+  else if(action==="delete-post"){
+    const postId=this.dataset.post;
+    update(s=>{s.muro=(s.muro||[]).filter(p=>p.id!==postId);return s;});
+  }
+  else if(action==="show-add-trip"){showAddTrip=true;editingTrip=null;renderModal();}
   else if(action==="cancel-modal")closeModal();
   else if(action==="submit-trip"){
     if(!newTrip.name.trim()||!newTrip.dest.trim()||!newTrip.dateFrom)return;
