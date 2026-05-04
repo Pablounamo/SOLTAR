@@ -4,164 +4,168 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>SOLTAR</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#F7F3EE;color:#2C2417;font-family:'DM Sans',sans-serif;min-height:100vh;width:100%;overflow-x:hidden}
-#shell{width:100%;max-width:480px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:#F7F3EE}
-#main-content{padding:20px 16px 80px;flex:1}
-input,button{font-family:'DM Sans',sans-serif}
-input{color:#2C2417}
-input::placeholder{color:#B8A99A}
+:root{--black:#0A0A0A;--white:#F5F5F5;--accent:#E8FF00;--gray1:#141414;--gray2:#1E1E1E;--gray3:#2A2A2A;--gray4:#444;--gray5:#888;--gray6:#BBB}
+body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;min-height:100vh;width:100%;overflow-x:hidden}
+#shell{width:100%;max-width:480px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;background:var(--black)}
+#main-content{padding:0 0 80px;flex:1}
+input,button{font-family:'Barlow',sans-serif}
+input{color:var(--white)}
+input::placeholder{color:var(--gray4)}
 button{cursor:pointer}
 
-/* Join */
-#join-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,#FFF8F2 0%,#F0E8DF 100%);width:100%;position:relative;overflow:hidden}
-.join-blob{position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(232,180,140,.35) 0%,transparent 70%);top:-80px;right:-100px;pointer-events:none}
-.join-blob2{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(180,210,180,.25) 0%,transparent 70%);bottom:-60px;left:-60px;pointer-events:none}
-.join-card{background:rgba(255,255,255,.8);border:1px solid rgba(232,180,140,.3);border-radius:28px;padding:44px 28px;display:flex;flex-direction:column;gap:18px;width:88%;max-width:340px;backdrop-filter:blur(20px);box-shadow:0 20px 60px rgba(180,130,90,.12)}
-.join-logo{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:#C17A3A;text-align:center;letter-spacing:.02em}
-.join-tagline{color:#9B8472;font-size:14px;text-align:center;line-height:1.6}
-.join-meta{color:#B8A99A;font-size:12px;text-align:center}
+/* JOIN */
+#join-screen{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;background:var(--black);width:100%;position:relative;overflow:hidden}
+.join-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=60') center/cover no-repeat;opacity:.18}
+.join-content{position:relative;padding:40px 24px 56px;display:flex;flex-direction:column;gap:20px}
+.join-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+.join-logo{font-family:'Barlow Condensed',sans-serif;font-size:72px;font-weight:900;line-height:.9;text-transform:uppercase;color:var(--white);letter-spacing:-.02em}
+.join-sub{font-size:14px;color:var(--gray5);line-height:1.6;max-width:280px}
+.join-meta{font-size:12px;color:var(--gray4);margin-top:-8px}
 
-/* Header */
-#app-header{background:rgba(247,243,238,.92);border-bottom:1px solid rgba(193,122,58,.12);position:sticky;top:0;z-index:100;backdrop-filter:blur(16px)}
-.header-inner{display:flex;justify-content:space-between;align-items:center;padding:12px 16px}
-.logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#C17A3A;letter-spacing:.02em}
-.me-chip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.7);border:1px solid rgba(193,122,58,.2);border-radius:20px;padding:5px 11px;font-size:12px;max-width:58%;box-shadow:0 2px 8px rgba(180,130,90,.08)}
-.me-name{color:#6B5544;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.me-points{color:#C17A3A;font-weight:700;flex-shrink:0}
+/* HEADER */
+#app-header{background:var(--black);border-bottom:1px solid var(--gray2);position:sticky;top:0;z-index:100}
+.header-inner{display:flex;justify-content:space-between;align-items:center;padding:14px 16px}
+.logo{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--white)}
+.me-chip{display:flex;align-items:center;gap:6px;border:1px solid var(--gray3);border-radius:2px;padding:5px 10px;font-size:12px;max-width:55%}
+.me-name{color:var(--gray6);font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.me-points{color:var(--accent);font-weight:700;font-family:'Barlow Condensed',sans-serif;font-size:14px;flex-shrink:0}
 
-/* Nav */
-#app-nav{display:flex;border-bottom:1px solid rgba(193,122,58,.1);background:rgba(247,243,238,.95)}
-.nav-btn{background:transparent;border:none;font-size:18px;padding:10px 0;flex:1;border-bottom:2px solid transparent;transition:all .25s;opacity:.5}
-.nav-btn.active{border-bottom-color:#C17A3A;opacity:1}
+/* NAV */
+#app-nav{display:flex;border-bottom:1px solid var(--gray2);background:var(--black)}
+.nav-btn{background:transparent;border:none;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:13px 0;flex:1;border-bottom:2px solid transparent;transition:all .2s;color:var(--gray4);font-family:'Barlow',sans-serif}
+.nav-btn.active{border-bottom-color:var(--accent);color:var(--white)}
 
-/* Countdown strip — inside calendar */
-.countdown-strip{background:linear-gradient(135deg,#C17A3A,#D4956A);border-radius:20px;padding:22px 20px;margin-bottom:16px;color:#fff;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(193,122,58,.25)}
-.countdown-strip::before{content:"";position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08);top:-60px;right:-40px}
-.countdown-strip::after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.06);bottom:-30px;left:20px}
-.cs-label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin-bottom:4px}
-.cs-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:2px}
-.cs-dest{font-size:12px;opacity:.75;margin-bottom:12px}
-.cs-days-row{display:flex;align-items:baseline;gap:6px}
-.cs-days{font-family:'Playfair Display',serif;font-size:56px;font-weight:700;line-height:1}
-.cs-days-label{font-size:14px;opacity:.8}
-.cs-budget{margin-top:10px;font-size:12px;opacity:.75;border-top:1px solid rgba(255,255,255,.2);padding-top:8px}
+/* SECTION LABEL */
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gray4);padding:20px 16px 8px}
 
-/* Section label */
-.section-label{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#B8A99A;margin:20px 0 10px}
-.section-label:first-child{margin-top:0}
-
-/* Trip card confirmed */
-.trip-card{background:#fff;border:1px solid rgba(193,122,58,.12);border-radius:18px;padding:16px;margin-bottom:10px;box-shadow:0 2px 12px rgba(180,130,90,.07)}
-.trip-card.suggestion{background:#FDFBF8;border:1px dashed rgba(160,190,160,.5);box-shadow:none}
-.trip-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px}
-.trip-emoji{font-size:28px;flex-shrink:0}
-.trip-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:#2C2417;line-height:1.2}
-.trip-dest{font-size:12px;color:#9B8472;margin-top:2px}
-.trip-dates{font-size:11px;color:#B8A99A;margin-top:2px}
-.trip-days-left{font-size:11px;color:#C17A3A;font-weight:600;margin-top:3px}
+/* TRIP CARDS — CONFIRMED */
+.trip-card{border-bottom:1px solid var(--gray2);padding:16px;transition:background .15s}
+.trip-card.confirmed{background:var(--gray1)}
+.trip-card.suggestion{background:var(--black)}
+.trip-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+.trip-emoji{font-size:24px;flex-shrink:0;margin-top:1px}
+.trip-name{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;color:var(--white);line-height:1}
+.trip-dest{font-size:12px;color:var(--gray5);margin-top:3px;text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+.trip-dates{font-size:12px;color:var(--gray4);margin-top:2px}
+.trip-days-left{font-size:11px;color:var(--accent);font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+.badge-confirmed{background:var(--accent);color:var(--black);border-radius:2px;font-size:9px;font-weight:800;padding:3px 7px;flex-shrink:0;white-space:nowrap;letter-spacing:.1em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif}
+.badge-voting{border:1px solid var(--gray3);color:var(--gray5);border-radius:2px;font-size:9px;font-weight:700;padding:3px 7px;flex-shrink:0;white-space:nowrap;letter-spacing:.08em;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif}
 .trip-avatars{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap;font-size:18px}
-.badge-confirmed{background:#EEF7EE;color:#5A9A5A;border:1px solid rgba(90,154,90,.25);border-radius:20px;font-size:10px;font-weight:600;padding:3px 9px;flex-shrink:0;white-space:nowrap}
-.badge-voting{background:#FFF8F0;color:#C17A3A;border:1px solid rgba(193,122,58,.25);border-radius:20px;font-size:10px;font-weight:600;padding:3px 9px;flex-shrink:0;white-space:nowrap}
-.sugg-inline-bar{display:flex;align-items:center;gap:5px;margin-top:3px}
-.sugg-inline-bar-bg{flex:1;height:3px;background:#EDE8E3;border-radius:2px;overflow:hidden}
-.sugg-inline-bar-fill{height:100%;background:linear-gradient(to right,#A8C5A0,#C17A3A)}
 
-/* Buttons */
-.confirm-btn{width:100%;background:linear-gradient(135deg,#C17A3A,#D4956A);color:#fff;border:none;border-radius:12px;padding:11px;font-size:13px;font-weight:600;margin-bottom:10px;box-shadow:0 4px 14px rgba(193,122,58,.25);letter-spacing:.01em}
-.confirm-btn.done{background:#EEF7EE;color:#5A9A5A;border:1px solid rgba(90,154,90,.25);box-shadow:none}
-.vote-btn{width:100%;background:#F0ECE7;color:#C17A3A;border:1px solid rgba(193,122,58,.25);border-radius:12px;padding:11px;font-size:13px;font-weight:600}
-.vote-btn.done{background:#EEF7EE;color:#5A9A5A;border:1px solid rgba(90,154,90,.25);opacity:.8;cursor:default}
+/* PROGRESS BAR */
+.prog-wrap{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.prog-bg{flex:1;height:2px;background:var(--gray3);overflow:hidden}
+.prog-fill{height:100%;background:var(--accent);transition:width .4s}
+.prog-label{font-size:11px;color:var(--gray5);flex-shrink:0;font-weight:600}
 
-/* Edit/delete */
-.trip-actions{display:flex;gap:6px;margin-top:8px}
-.btn-edit{flex:1;background:#F7F3EE;color:#9B8472;border:1px solid #E8E0D8;border-radius:10px;padding:8px;font-size:12px;font-weight:500}
-.btn-delete{flex:1;background:#FFF0F0;color:#D47A7A;border:1px solid rgba(212,122,122,.25);border-radius:10px;padding:8px;font-size:12px;font-weight:500}
+/* BUTTONS */
+.btn-confirm{width:100%;background:var(--white);color:var(--black);border:none;border-radius:2px;padding:12px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;font-family:'Barlow',sans-serif}
+.btn-confirm.done{background:transparent;color:var(--accent);border:1px solid var(--accent)}
+.btn-vote{width:100%;background:transparent;color:var(--white);border:1px solid var(--gray3);border-radius:2px;padding:12px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-family:'Barlow',sans-serif}
+.btn-vote.done{color:var(--accent);border-color:var(--accent)}
 
-/* Budget */
-.budget-card{background:linear-gradient(135deg,#FFFBF7,#FFF5EC);border:1px solid rgba(193,122,58,.15);border-radius:12px;padding:12px;margin-bottom:10px}
-.budget-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.budget-label{font-size:10px;color:#B8A99A;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
-.budget-amount{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#C17A3A}
-.budget-row{display:flex;justify-content:space-between;margin-bottom:3px}
-.budget-hint{font-size:11px;color:#B8A99A;margin-top:5px}
+/* TRIP ACTIONS */
+.trip-actions{display:flex;gap:8px;margin-top:6px}
+.btn-edit{flex:1;background:transparent;color:var(--gray5);border:1px solid var(--gray3);border-radius:2px;padding:8px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.btn-delete{flex:1;background:transparent;color:#FF4444;border:1px solid rgba(255,68,68,.25);border-radius:2px;padding:8px;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
 
-/* Sugg cards */
-.sugg-card{background:#fff;border:1px solid rgba(168,197,160,.3);border-radius:16px;padding:14px;margin-bottom:10px;box-shadow:0 2px 10px rgba(168,197,160,.1)}
-.sugg-bar-bg{height:5px;background:#EDE8E3;border-radius:3px;overflow:hidden;margin-bottom:3px}
-.sugg-bar-fill{height:100%;background:linear-gradient(to right,#A8C5A0,#C17A3A);border-radius:3px;transition:width .4s}
+/* BUDGET */
+.budget-block{background:var(--gray2);border-radius:2px;padding:12px;margin-bottom:10px;display:flex;flex-direction:column;gap:5px}
+.budget-header{display:flex;justify-content:space-between;align-items:center}
+.budget-lbl{font-size:10px;color:var(--gray5);font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.budget-amt{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;color:var(--accent)}
+.budget-row{display:flex;justify-content:space-between;font-size:12px}
+.budget-hint{font-size:11px;color:var(--gray4);margin-top:2px}
 
-/* Ideas */
-.ideas-section{border-top:1px solid #F0EBE4;padding-top:10px;margin-top:4px}
-.idea-row{background:#FAFAF8;border-radius:10px;padding:9px 11px;margin-bottom:5px;border:1px solid #F0EBE4}
-.idea-text{font-size:13px;color:#4A3728;margin-bottom:4px}
+/* IDEAS */
+.ideas-section{border-top:1px solid var(--gray2);padding-top:10px;margin-top:4px}
+.idea-row{background:var(--gray2);border-radius:2px;padding:9px 11px;margin-bottom:5px}
+.idea-text{font-size:13px;color:var(--gray6);margin-bottom:5px}
 .idea-meta{display:flex;justify-content:space-between;align-items:center}
-.like-btn{background:transparent;border:1px solid #E8E0D8;border-radius:8px;padding:2px 8px;font-size:12px;color:#B8A99A}
-.like-btn.active{background:#FFF0F5;border-color:rgba(212,122,150,.3);color:#D47A96}
+.like-btn{background:transparent;border:1px solid var(--gray3);border-radius:2px;padding:2px 8px;font-size:12px;color:var(--gray5)}
+.like-btn.active{border-color:#FF4D8F;color:#FF4D8F}
 
-/* Who falta */
-.who-chip{display:flex;align-items:center;gap:5px;background:#FFF8F0;border:1px solid rgba(193,122,58,.2);border-radius:20px;padding:4px 10px;font-size:12px}
+/* COUNTDOWN STRIP */
+.countdown-strip{margin:0;padding:24px 16px;background:var(--gray1);border-top:1px solid var(--gray2);position:relative;overflow:hidden}
+.cs-eyebrow{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gray4);margin-bottom:4px;font-family:'Barlow Condensed',sans-serif}
+.cs-number{font-family:'Barlow Condensed',sans-serif;font-size:96px;font-weight:900;color:var(--accent);line-height:.85;letter-spacing:-.03em}
+.cs-unit{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--gray5);margin-top:4px}
+.cs-name{font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;text-transform:uppercase;color:var(--white);margin-top:8px;letter-spacing:.02em}
+.cs-dest{font-size:12px;color:var(--gray5);margin-top:2px;text-transform:uppercase;letter-spacing:.1em;font-weight:600}
+.cs-dates{font-size:12px;color:var(--gray4);margin-top:2px}
+.cs-budget{font-size:12px;color:var(--gray5);margin-top:8px;padding-top:8px;border-top:1px solid var(--gray3)}
 
-/* Hype */
-.hype-bar-bg{height:6px;background:#EDE8E3;border-radius:3px;overflow:hidden;margin-bottom:5px}
-.hype-bar-fill{height:100%;border-radius:3px;transition:width .8s ease}
+/* WHO FALTA */
+.who-strip{padding:12px 16px;background:var(--gray1);border-bottom:1px solid var(--gray2);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.who-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray4);flex-shrink:0}
+.who-chip{display:flex;align-items:center;gap:4px;border:1px solid var(--gray3);border-radius:2px;padding:3px 8px;font-size:12px;color:var(--gray5)}
 
-/* Photos */
-.upload-area{border:2px dashed rgba(193,122,58,.25);border-radius:16px;padding:20px;text-align:center;cursor:pointer;margin-bottom:14px;display:flex;flex-direction:column;align-items:center;gap:6px;background:#FFFBF7;transition:all .2s}
-.photo-card{border-radius:14px;overflow:hidden;background:#fff;border:1px solid #EDE8E3;margin-bottom:10px;box-shadow:0 2px 10px rgba(180,130,90,.06)}
-.photo-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
-.photo-info{padding:9px 12px;display:flex;flex-direction:column;gap:2px}
+/* HYPE */
+.hype-strip{padding:12px 16px;background:var(--black);border-bottom:1px solid var(--gray2);display:flex;align-items:center;gap:10px}
+.hype-label{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray4);flex-shrink:0}
+.hype-bar-bg{flex:1;height:2px;background:var(--gray3);overflow:hidden}
+.hype-bar-fill{height:100%;background:var(--accent);transition:width .8s ease}
+.hype-pct{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;color:var(--accent);flex-shrink:0}
 
-/* Leaderboard */
-.lb-row{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #EDE8E3;border-radius:14px;padding:12px 14px;margin-bottom:7px;box-shadow:0 2px 8px rgba(180,130,90,.05)}
-.lb-row.first{background:linear-gradient(135deg,#FFFBF0,#FFF5E0);border:1px solid rgba(193,122,58,.25)}
-.lb-row.me{border:1px solid rgba(193,122,58,.4)}
-.cagon-tag{font-size:10px;color:#D47A7A;margin-top:1px}
+/* PROPOSE BTN */
+.propose-btn-wrap{padding:12px 16px;border-bottom:1px solid var(--gray2)}
 
-/* Forms */
-.empty{display:flex;flex-direction:column;align-items:center;gap:10px;padding:36px 0;color:#C4B5A8;text-align:center;font-size:14px}
-.modal-overlay{position:fixed;inset:0;background:rgba(44,36,23,.5);display:flex;align-items:flex-end;justify-content:center;z-index:200;backdrop-filter:blur(6px)}
-.modal-card{background:#FDFBF8;border-radius:24px 24px 0 0;padding:24px 20px 36px;width:100%;max-width:480px;display:flex;flex-direction:column;gap:13px;max-height:90vh;overflow-y:auto}
-.modal-handle{width:36px;height:4px;background:#DDD5CC;border-radius:2px;margin:0 auto 8px}
-.modal-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#2C2417}
-.input-wrap{display:flex;flex-direction:column;gap:5px}
-.input-label{font-size:11px;color:#B8A99A;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
-.app-input{background:#fff;border:1px solid #E8E0D8;border-radius:10px;padding:11px 13px;color:#2C2417;font-size:14px;outline:none;width:100%;transition:border-color .2s}
-.app-input:focus{border-color:rgba(193,122,58,.5)}
-.btn-primary{background:linear-gradient(135deg,#C17A3A,#D4956A);color:#fff;border:none;border-radius:11px;padding:12px 20px;font-size:14px;font-weight:600;box-shadow:0 4px 14px rgba(193,122,58,.3)}
-.btn-cancel{background:transparent;color:#9B8472;border:1px solid #E8E0D8;border-radius:11px;padding:12px 16px;font-size:14px}
-.btn-small{background:#FFF8F0;color:#C17A3A;border:1px solid rgba(193,122,58,.25);border-radius:8px;padding:4px 9px;font-size:12px;font-weight:600}
-.btn-tiny{background:#F7F3EE;color:#B8A99A;border:none;border-radius:6px;padding:3px 8px;font-size:14px}
+/* PHOTOS */
+.upload-area{margin:16px;border:1px dashed var(--gray3);border-radius:2px;padding:20px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px}
+.photo-card{margin:0 16px 1px;position:relative;overflow:hidden}
+.photo-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;filter:brightness(.9)}
+.photo-overlay{position:absolute;bottom:0;left:0;right:0;padding:10px 12px;background:linear-gradient(transparent,rgba(0,0,0,.7))}
+
+/* LEADERBOARD */
+.lb-row{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--gray2)}
+.lb-row.first{background:var(--gray1)}
+.lb-row.me{border-left:2px solid var(--accent)}
+.cagon-tag{font-size:10px;color:#FF4444;margin-top:1px;font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+
+/* FORMS */
+.empty{display:flex;flex-direction:column;align-items:center;gap:10px;padding:48px 16px;color:var(--gray4);text-align:center;font-size:14px}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);display:flex;align-items:flex-end;justify-content:center;z-index:200}
+.modal-card{background:var(--gray1);border-top:1px solid var(--gray3);padding:20px 20px 40px;width:100%;max-width:480px;display:flex;flex-direction:column;gap:14px;max-height:88vh;overflow-y:auto}
+.modal-handle{width:32px;height:3px;background:var(--gray3);border-radius:2px;margin:0 auto 6px}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--white)}
+.input-wrap{display:flex;flex-direction:column;gap:6px}
+.input-label{font-size:10px;color:var(--gray4);font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.app-input{background:var(--gray2);border:1px solid var(--gray3);border-radius:2px;padding:12px 14px;color:var(--white);font-size:14px;outline:none;width:100%;transition:border-color .2s}
+.app-input:focus{border-color:var(--accent)}
+.btn-primary{background:var(--accent);color:var(--black);border:none;border-radius:2px;padding:13px 20px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.btn-cancel{background:transparent;color:var(--gray5);border:1px solid var(--gray3);border-radius:2px;padding:13px 16px;font-size:13px;font-weight:600}
+.btn-small{background:transparent;color:var(--accent);border:1px solid var(--gray3);border-radius:2px;padding:4px 10px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.btn-tiny{background:var(--gray2);color:var(--gray5);border:none;border-radius:2px;padding:3px 8px;font-size:14px}
 .modal-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:4px}
-.cal-sep{text-align:center;color:#C4B5A8;font-size:11px;letter-spacing:.08em;margin:16px 0 10px;display:flex;align-items:center;gap:8px}
-.cal-sep::before,.cal-sep::after{content:"";flex:1;height:1px;background:#EDE8E3}
-.pts-guide{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
-.pt-item{background:#fff;border:1px solid #EDE8E3;border-radius:8px;padding:4px 9px;font-size:11px;color:#9B8472}
 .date-row{display:flex;gap:8px}
 .date-row .input-wrap{flex:1;min-width:0}
-.who-wrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+.pts-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;padding:0 16px}
+.pt-chip{border:1px solid var(--gray3);border-radius:2px;padding:5px 10px;font-size:11px;color:var(--gray5);font-weight:600;letter-spacing:.04em}
 </style>
 </head>
 <body>
 
+<!-- JOIN -->
 <div id="join-screen" style="display:none">
-  <div class="join-blob"></div>
-  <div class="join-blob2"></div>
-  <div class="join-card">
-    <div class="join-logo">soltar</div>
-    <div class="join-tagline">Los mejores momentos siempre están por venir ✨</div>
-    <input class="app-input" id="name-input" placeholder="¿Cómo te llaman?"/>
-    <button class="btn-primary" id="join-btn">Entrar al grupo →</button>
+  <div class="join-bg"></div>
+  <div class="join-content">
+    <div class="join-eyebrow">El grupo que siempre viaja</div>
+    <div class="join-logo">SOL<br/>TAR</div>
+    <div class="join-sub">Organizá los viajes con tu grupo. Votá destinos, confirmá fechas, compartí fotos.</div>
+    <input class="app-input" id="name-input" placeholder="Tu nombre"/>
+    <button class="btn-primary" id="join-btn">ENTRAR →</button>
     <div class="join-meta" id="join-meta">Sé el primero</div>
   </div>
 </div>
 
+<!-- SHELL -->
 <div id="shell" style="display:none">
   <div id="app-header">
     <div class="header-inner">
-      <span class="logo">soltar</span>
+      <span class="logo">SOLTAR</span>
       <div class="me-chip">
         <span id="hdr-avatar"></span>
         <span class="me-name" id="hdr-name"></span>
@@ -171,10 +175,9 @@ button{cursor:pointer}
     </div>
   </div>
   <nav id="app-nav">
-    <button class="nav-btn active" data-tab="calendar">📅</button>
-    <button class="nav-btn" data-tab="suggestions">🗳️</button>
-    <button class="nav-btn" data-tab="photos">📸</button>
-    <button class="nav-btn" data-tab="leaderboard">🏆</button>
+    <button class="nav-btn active" data-tab="trips">Viajes</button>
+    <button class="nav-btn" data-tab="photos">Fotos</button>
+    <button class="nav-btn" data-tab="ranking">Ranking</button>
   </nav>
   <div id="main-content"></div>
 </div>
@@ -189,28 +192,24 @@ const firebaseConfig={apiKey:"AIzaSyC8zEUTsRaP_KUQyfLFe1KTkAZ43HKbEH8",authDomai
 const db=getFirestore(initializeApp(firebaseConfig));
 
 async function loadState(){try{const s=await getDoc(doc(db,"soltar","state"));return s.exists()?s.data().value:null;}catch(e){return null;}}
-async function saveState(s){try{await setDoc(doc(db,"soltar","state"),{value:s});}catch(e){console.error("Save error:",e);}}
+async function saveState(s){try{await setDoc(doc(db,"soltar","state"),{value:s});}catch(e){console.error(e);}}
 
 const AVATARS=["🦁","🐺","🦊","🐻","🦝","🦄","🐸","🦋","🐬","🦜"];
-function getDeviceId(){let id=localStorage.getItem("soltar-uid");if(!id){id=Math.random().toString(36).slice(2,10);localStorage.setItem("soltar-uid",id);}return id;}
-function getAvatar(){let a=localStorage.getItem("soltar-avatar");if(!a){a=AVATARS[Math.floor(Math.random()*AVATARS.length)];localStorage.setItem("soltar-avatar",a);}return a;}
-const myId=getDeviceId(),myAvatar=getAvatar();
+function uid(){let id=localStorage.getItem("soltar-uid");if(!id){id=Math.random().toString(36).slice(2,10);localStorage.setItem("soltar-uid",id);}return id;}
+function ava(){let a=localStorage.getItem("soltar-avatar");if(!a){a=AVATARS[Math.floor(Math.random()*AVATARS.length)];localStorage.setItem("soltar-avatar",a);}return a;}
+const myId=uid(),myAvatar=ava();
 let myName=localStorage.getItem("soltar-name")||"";
 
 function daysUntil(d){if(!d)return null;return Math.ceil((new Date(d)-new Date())/86400000);}
 function hypeScore(trip,members){if(!trip)return 0;const c=Object.values(trip.confirmed||{}).filter(Boolean).length;return Math.round((c/Math.max(Object.keys(members).length,1))*100);}
-function monthlySavings(budget,d){if(!budget||!d)return null;const m=(new Date(d)-new Date())/(86400000*30.44);return m<=0?null:Math.ceil(budget/m);}
+function monthlySavings(b,d){if(!b||!d)return null;const m=(new Date(d)-new Date())/(86400000*30.44);return m<=0?null:Math.ceil(b/m);}
 function defaultState(){return{members:{},trips:[],tripIdeas:{},photos:[],voteLog:{}};}
 function fmt(d){if(!d)return"";const[y,m,day]=d.split("-");return`${day}/${m}`;}
-function fmtFull(d){if(!d)return"";const[y,m,day]=d.split("-");return`${day}/${m}/${y}`;}
-function tripDisplay(trip){
-  if(trip.dateFrom&&trip.dateTo)return`${fmt(trip.dateFrom)} → ${fmt(trip.dateTo)}`;
-  if(trip.dateFrom)return fmtFull(trip.dateFrom);
-  return fmtFull(trip.date||"");
-}
-function tripStart(trip){return trip.dateFrom||trip.date||"";}
+function fmtFull(d){if(!d)return"";const[y,m,day]=d.split("-");return`${day}/${m}/${y.slice(2)}`;}
+function tripDisplay(t){if(t.dateFrom&&t.dateTo)return`${fmt(t.dateFrom)} → ${fmt(t.dateTo)}`;if(t.dateFrom)return fmtFull(t.dateFrom);return fmtFull(t.date||"");}
+function tripStart(t){return t.dateFrom||t.date||"";}
 
-let STATE=null,currentTab="calendar",showAddTrip=false,showAddIdea=null,editingTrip=null;
+let STATE=null,currentTab="trips",showAddTrip=false,showAddIdea=null,editingTrip=null;
 let newTrip={name:"",dest:"",dateFrom:"",dateTo:"",emoji:"✈️",budget:""};
 let lastHash="";
 
@@ -231,10 +230,9 @@ function renderMain(){
   const confirmed=trips.filter(t=>t.status==="confirmed").sort((a,b)=>new Date(tripStart(a))-new Date(tripStart(b)));
   const suggestions=trips.filter(t=>t.status==="suggestion").sort((a,b)=>Object.values(b.confirmed||{}).filter(Boolean).length-Object.values(a.confirmed||{}).filter(Boolean).length);
   let html="";
-  if(currentTab==="calendar")html=buildCalendar(confirmed,suggestions);
-  else if(currentTab==="suggestions")html=buildSuggestions(suggestions);
+  if(currentTab==="trips")html=buildTrips(confirmed,suggestions);
   else if(currentTab==="photos")html=buildPhotos();
-  else if(currentTab==="leaderboard")html=buildLeaderboard();
+  else if(currentTab==="ranking")html=buildRanking();
   document.getElementById("main-content").innerHTML=html;
   bindMainEvents();
 }
@@ -256,225 +254,180 @@ document.querySelectorAll(".nav-btn").forEach(btn=>{
   });
 });
 
-// ── Calendar (main screen) ────────────────────────────────────────────────────
-function buildCalendar(confirmed,suggestions){
+// ── TRIPS TAB ─────────────────────────────────────────────────────────────────
+function buildTrips(confirmed,suggestions){
   const next=confirmed[0]||null;
-  const days=next?daysUntil(tripStart(next)):null;
   const hype=hypeScore(next,STATE.members);
-  const hc=hype>70?"#C17A3A":hype>40?"#D4A858":"#A8C5A0";
-  const monthly=next?monthlySavings(next.budget,tripStart(next)):null;
-  const whoFalta=Object.entries(STATE.members).filter(([uid])=>!(STATE.voteLog[uid]||[]).length&&!(STATE.trips||[]).some(t=>t.confirmed?.[uid])&&uid!==myId);
+  const whoFalta=Object.entries(STATE.members).filter(([id])=>!(STATE.voteLog[id]||[]).length&&!(STATE.trips||[]).some(t=>t.confirmed?.[id])&&id!==myId);
 
   let html="";
 
-  // Countdown strip for next trip
-  if(next){
-    html+=`<div class="countdown-strip">
-      <div class="cs-label">Próximo viaje</div>
-      <div class="cs-name">${next.emoji} ${next.name}</div>
-      <div class="cs-dest">📍 ${next.dest} · ${tripDisplay(next)}</div>
-      <div class="cs-days-row">
-        <div class="cs-days">${days!==null?(days<=0?"¡Hoy!":days):"—"}</div>
-        <div class="cs-days-label">${days===1?"día":"días"}</div>
-      </div>
-      ${next.budget?`<div class="cs-budget">💰 USD ${next.budget.toLocaleString()} p/persona${monthly?` · ahorrá ~$${monthly}/mes`:""}</div>`:""}
-    </div>`;
-  }
-
-  // Hype
-  if(next){
-    html+=`<div class="card" style="margin-bottom:10px">
-      <div class="card-row" style="margin-bottom:6px">
-        <span style="font-size:13px;font-weight:600;color:#9B8472">🌡️ Hype del grupo</span>
-        <span style="font-size:16px;font-weight:700;color:#C17A3A">${hype}%</span>
-      </div>
-      <div class="hype-bar-bg"><div class="hype-bar-fill" style="width:${hype}%;background:${hc}"></div></div>
-      <div style="font-size:11px;color:#B8A99A;margin-top:3px">${hype>=80?"🔥 Están todos re calientes":hype>=50?"✨ Buen ritmo, faltan algunos":"😴 Falta más onda, empujen"}</div>
+  // Hype bar
+  if(next&&Object.keys(STATE.members).length>1){
+    html+=`<div class="hype-strip">
+      <span class="hype-label">Hype</span>
+      <div class="hype-bar-bg"><div class="hype-bar-fill" style="width:${hype}%"></div></div>
+      <span class="hype-pct">${hype}%</span>
     </div>`;
   }
 
   // Who's missing
   if(whoFalta.length){
-    html+=`<div class="card" style="margin-bottom:10px;border-color:rgba(193,122,58,.2)">
-      <div style="font-size:13px;font-weight:600;color:#9B8472;margin-bottom:6px">👀 ¿Quién falta?</div>
-      <div class="who-wrap">${whoFalta.map(([uid,m])=>`<div class="who-chip"><span>${m.avatar}</span><span style="color:#6B5544;font-size:12px">${m.name}</span></div>`).join("")}</div>
+    html+=`<div class="who-strip">
+      <span class="who-label">Sin actividad</span>
+      ${whoFalta.map(([id,m])=>`<div class="who-chip">${m.avatar} ${m.name}</div>`).join("")}
     </div>`;
   }
+
+  // Propose button
+  html+=`<div class="propose-btn-wrap">
+    <button class="btn-primary" style="width:100%" data-action="show-add-trip">+ PROPONER VIAJE</button>
+  </div>`;
 
   // Confirmed trips
   if(confirmed.length){
-    html+=`<div class="section-label">Viajes confirmados</div>`;
+    html+=`<div class="sec-label">Confirmados</div>`;
     html+=confirmed.map(t=>buildTripCard(t,"confirmed")).join("");
   }
 
-  // Ideas for next trip
-  if(next){
-    html+=`<div class="card" style="margin-top:4px">
-      <div class="card-row" style="margin-bottom:6px">
-        <span style="font-size:13px;font-weight:600;color:#9B8472">💡 Ideas para ${next.name}</span>
-        <button class="btn-small" data-action="show-idea" data-trip="${next.id}">+ Agregar</button>
-      </div>
-      ${buildIdeas(next.id)}
-      ${showAddIdea===next.id?buildIdeaInput(next.id):""}
-    </div>`;
+  // Suggestions
+  if(suggestions.length){
+    html+=`<div class="sec-label">En votación</div>`;
+    html+=suggestions.map(t=>buildTripCard(t,"suggestion")).join("");
   }
 
   if(!confirmed.length&&!suggestions.length){
-    html+=`<div class="empty"><span style="font-size:36px">🗺️</span><span>No hay viajes todavía.<br/>¡Proponé uno en Sugerencias!</span></div>`;
+    html+=`<div class="empty"><span style="font-size:40px">🌍</span><span style="font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;letter-spacing:.05em;text-transform:uppercase">Ningún viaje todavía</span><span style="color:var(--gray4);font-size:13px">Proponé el primero</span></div>`;
+  }
+
+  // Countdown strip at bottom
+  if(next){
+    const days=daysUntil(tripStart(next));
+    const monthly=monthlySavings(next.budget,tripStart(next));
+    html+=`<div class="countdown-strip">
+      <div class="cs-eyebrow">Próximo destino</div>
+      <div class="cs-number">${days!==null?(days<=0?"0":days):"—"}</div>
+      <div class="cs-unit">${days===1?"día":"días"}</div>
+      <div class="cs-name">${next.emoji} ${next.name}</div>
+      <div class="cs-dest">📍 ${next.dest}</div>
+      <div class="cs-dates">${tripDisplay(next)}</div>
+      ${next.budget?`<div class="cs-budget">💰 USD ${next.budget.toLocaleString()} p/persona${monthly?` · ~$${monthly}/mes para llegar`:""}</div>`:""}
+    </div>`;
   }
 
   return html;
 }
 
-// ── Suggestions ───────────────────────────────────────────────────────────────
-function buildSuggestions(suggestions){
-  return`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-    <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2C2417">Sugerencias</div>
-    <button class="btn-primary" style="padding:9px 16px;font-size:13px" data-action="show-add-trip">+ Proponer</button>
-  </div>
-  <p style="font-size:12px;color:#B8A99A;margin-bottom:16px;line-height:1.5">Con 5 confirmados, el viaje se agenda automáticamente ✨</p>
-  ${!suggestions.length?`<div class="empty"><span style="font-size:36px">💭</span><span>Nadie propuso nada todavía.<br/>¡Sé el primero!</span></div>`:""}
-  ${suggestions.map(trip=>{
-    const count=Object.values(trip.confirmed||{}).filter(Boolean).length;
-    const myConf=trip.confirmed?.[myId];
-    const voted=(STATE.voteLog[myId]||[]).includes(trip.id);
-    return`<div class="sugg-card">
-      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px">
-        <span style="font-size:26px;flex-shrink:0">${trip.emoji}</span>
-        <div style="flex:1;min-width:0">
-          <div style="font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:#2C2417">${trip.name}</div>
-          <div style="font-size:12px;color:#9B8472">📍 ${trip.dest}</div>
-          <div style="font-size:11px;color:#B8A99A">${tripDisplay(trip)}</div>
-          <div style="font-size:11px;color:#C4B5A8">por ${STATE.members[trip.proposedBy]?.name||"alguien"}</div>
-        </div>
-        <span class="badge-voting">${count}/5</span>
-      </div>
-      <div style="margin-bottom:8px">
-        <div class="sugg-bar-bg"><div class="sugg-bar-fill" style="width:${Math.min((count/5)*100,100)}%"></div></div>
-      </div>
-      <div style="display:flex;gap:4px;margin-bottom:8px;font-size:18px">${Object.entries(trip.confirmed||{}).filter(([,v])=>v).map(([uid])=>`<span title="${STATE.members[uid]?.name||""}">${STATE.members[uid]?.avatar||"👤"}</span>`).join("")}</div>
-      <button class="vote-btn${myConf?" done":""}" data-action="vote-trip" data-trip="${trip.id}">${myConf?"✓ Confirmado (+1pt)":"✈️ Confirmarme (+1pt)"}</button>
-      ${buildBudgetCard(trip)}
-      <div class="trip-actions">
-        <button class="btn-edit" data-action="edit-trip" data-trip="${trip.id}">✏️ Editar</button>
-        <button class="btn-delete" data-action="delete-trip" data-trip="${trip.id}">🗑️ Borrar</button>
-      </div>
-    </div>`;
-  }).join("")}`;
-}
-
-// ── Photos ────────────────────────────────────────────────────────────────────
-function buildPhotos(){
-  const photos=STATE.photos||[];
-  return`<div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2C2417;margin-bottom:14px">Fotos del grupo</div>
-  <div class="upload-area" id="upload-area">
-    <span style="font-size:28px">📷</span>
-    <span style="font-size:13px;color:#9B8472">Subir foto <span style="color:#C17A3A;font-weight:600">+3 puntos</span></span>
-    <input type="file" id="photo-input" accept="image/*" style="display:none"/>
-  </div>
-  ${!photos.length?PLACEHOLDERS.map(url=>`<div class="photo-card"><img src="${url}" class="photo-img" loading="lazy"/><div class="photo-info"><span style="font-size:12px;color:#9B8472">📍 Viaje anterior</span></div></div>`).join(""):""}
-  ${photos.map(p=>`<div class="photo-card"><img src="${p.url}" class="photo-img"/><div class="photo-info"><span style="font-size:13px;color:#4A3728">${p.caption||"Sin descripción"}</span><span style="font-size:11px;color:#B8A99A">${STATE.members[p.uid]?.avatar||""} ${STATE.members[p.uid]?.name||""}</span></div></div>`).join("")}`;
-}
-
-// ── Leaderboard ───────────────────────────────────────────────────────────────
-function buildLeaderboard(){
-  const lb=Object.entries(STATE.members).sort((a,b)=>(b[1].points||0)-(a[1].points||0));
-  return`<div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#2C2417;margin-bottom:14px">Ranking</div>
-  <div class="pts-guide">
-    <span class="pt-item">✈️ 1ro en confirmar <b style="color:#C17A3A">+10</b></span>
-    <span class="pt-item">📸 Subir foto <b style="color:#C17A3A">+3</b></span>
-    <span class="pt-item">🗳️ Votar <b style="color:#C17A3A">+1</b></span>
-  </div>
-  ${lb.map(([uid,m],i)=>`<div class="lb-row${i===0?" first":""}${uid===myId?" me":""}">
-    <div style="width:24px;text-align:center;font-size:15px;flex-shrink:0">${i===0?"🥇":i===1?"🥈":i===2?"🥉":i+1}</div>
-    <div style="font-size:22px;flex-shrink:0">${m.avatar}</div>
-    <div style="flex:1;min-width:0">
-      <div style="font-size:14px;font-weight:500;color:#2C2417;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.name}${uid===myId?" (vos)":""}</div>
-      ${m.cagon?`<div class="cagon-tag">👻 Cagón — se bajó de un viaje</div>`:""}
-    </div>
-    <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#C17A3A;flex-shrink:0">✦${m.points||0}</div>
-  </div>`).join("")}`;
-}
-
-// ── Trip card ─────────────────────────────────────────────────────────────────
+// ── TRIP CARD ─────────────────────────────────────────────────────────────────
 function buildTripCard(trip,type){
   const count=Object.values(trip.confirmed||{}).filter(Boolean).length;
   const myConf=trip.confirmed?.[myId];
   const days=daysUntil(tripStart(trip));
-  return`<div class="trip-card${type==="suggestion"?" suggestion":""}">
+  const isConf=type==="confirmed";
+  return`<div class="trip-card ${type}">
     <div class="trip-top">
       <span class="trip-emoji">${trip.emoji}</span>
       <div style="flex:1;min-width:0">
         <div class="trip-name">${trip.name}</div>
-        <div class="trip-dest">📍 ${trip.dest}</div>
+        <div class="trip-dest">${trip.dest}</div>
         <div class="trip-dates">${tripDisplay(trip)}</div>
-        ${type==="confirmed"&&days!==null?`<div class="trip-days-left">${days<=0?"¡Ya llegó! 🎉":days===1?"¡Mañana! 🎒":`Faltan ${days} días`}</div>`:""}
-        ${type==="suggestion"?`<div class="sugg-inline-bar"><div class="sugg-inline-bar-bg"><div class="sugg-inline-bar-fill" style="width:${Math.min((count/5)*100,100)}%"></div></div><span style="font-size:10px;color:#B8A99A">${count}/5</span></div>`:""}
+        ${isConf&&days!==null?`<div class="trip-days-left">${days<=0?"¡YA LLEGÓ!":days===1?"¡MAÑANA!":`${days} DÍAS`}</div>`:""}
       </div>
-      <span class="${type==="confirmed"?"badge-confirmed":"badge-voting"}">${type==="confirmed"?"✓ Confirmado":"Votando"}</span>
+      <span class="${isConf?"badge-confirmed":"badge-voting"}">${isConf?"OK":"${count}/5"}</span>
     </div>
-    <div class="trip-avatars">
-      ${Object.entries(trip.confirmed||{}).filter(([,v])=>v).map(([uid])=>`<span title="${STATE.members[uid]?.name||""}">${STATE.members[uid]?.avatar||"👤"}</span>`).join("")}
-      ${Object.entries(STATE.members).filter(([uid,m])=>m.cagon&&m.cagonTrip===trip.id).map(()=>`<span style="opacity:.35">👻</span>`).join("")}
-    </div>
-    <button class="confirm-btn${myConf?" done":""}" data-action="${type==="confirmed"?"confirm-trip":"vote-trip"}" data-trip="${trip.id}">
-      ${myConf?(type==="confirmed"?"Bajarme del viaje":"✓ Confirmado"):(type==="suggestion"?"✈️ Confirmarme (+1pt)":"✈️ Confirmarme (+10pt si sos el primero)")}
+    ${!isConf?`<div class="prog-wrap"><div class="prog-bg"><div class="prog-fill" style="width:${Math.min((count/5)*100,100)}%"></div></div><span class="prog-label">${count}/5</span></div>`:""}
+    <div class="trip-avatars">${Object.entries(trip.confirmed||{}).filter(([,v])=>v).map(([id])=>`<span title="${STATE.members[id]?.name||""}">${STATE.members[id]?.avatar||"👤"}</span>`).join("")}${Object.entries(STATE.members).filter(([id,m])=>m.cagon&&m.cagonTrip===trip.id).map(()=>`<span style="opacity:.3">👻</span>`).join("")}</div>
+    <button class="btn-confirm${myConf?" done":""}" data-action="${isConf?"confirm-trip":"vote-trip"}" data-trip="${trip.id}">
+      ${myConf?(isConf?"BAJARME DEL VIAJE":"✓ CONFIRMADO"):(isConf?"CONFIRMARME (+10 si sos el 1ro)":"CONFIRMARME (+1PT)")}
     </button>
-    ${buildBudgetCard(trip)}
+    ${buildBudget(trip)}
     <div class="ideas-section">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-        <span style="font-size:12px;color:#B8A99A;font-weight:500">💡 Ideas & planes</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:10px;color:var(--gray4);font-weight:700;letter-spacing:.12em;text-transform:uppercase">Ideas & planes</span>
         <button class="btn-tiny" data-action="show-idea" data-trip="${trip.id}">+</button>
       </div>
       ${buildIdeas(trip.id)}
       ${showAddIdea===trip.id?buildIdeaInput(trip.id):""}
     </div>
     <div class="trip-actions">
-      <button class="btn-edit" data-action="edit-trip" data-trip="${trip.id}">✏️ Editar</button>
-      <button class="btn-delete" data-action="delete-trip" data-trip="${trip.id}">🗑️ Borrar</button>
+      <button class="btn-edit" data-action="edit-trip" data-trip="${trip.id}">✏️ EDITAR</button>
+      <button class="btn-delete" data-action="delete-trip" data-trip="${trip.id}">🗑️ BORRAR</button>
     </div>
   </div>`;
 }
 
-function buildBudgetCard(trip){
+function buildBudget(trip){
   if(!trip?.budget)return"";
   const monthly=monthlySavings(trip.budget,tripStart(trip));
   const days=daysUntil(tripStart(trip));
   const weekly=monthly?Math.ceil(monthly/4.33):null;
-  const urgency=days!==null&&days<60?"high":days!==null&&days<120?"medium":"normal";
-  const color={high:"#D47A7A",medium:"#C17A3A",normal:"#5A9A5A"}[urgency];
-  return`<div class="budget-card">
-    <div class="budget-top"><span class="budget-label">💰 Presupuesto p/persona</span><span class="budget-amount" style="color:${color}">$${trip.budget.toLocaleString()} USD</span></div>
-    ${monthly?`<div class="budget-row"><span style="font-size:12px;color:#9B8472">📅 Por mes</span><span style="font-size:14px;font-weight:600;color:${color}">$${monthly} USD</span></div>
-    <div class="budget-row"><span style="font-size:12px;color:#9B8472">📆 Por semana</span><span style="font-size:12px;color:#B8A99A">$${weekly} USD</span></div>
-    <div class="budget-hint">${urgency==="high"?"🔥 Queda poco — empezá a ahorrar ya":urgency==="medium"?"✨ Buen momento para arrancar":"🌱 Hay tiempo, pero cuanto antes mejor"}</div>`:""}
+  const urgent=days!==null&&days<60;
+  return`<div class="budget-block">
+    <div class="budget-header"><span class="budget-lbl">Presupuesto p/persona</span><span class="budget-amt">$${trip.budget.toLocaleString()} USD</span></div>
+    ${monthly?`<div class="budget-row"><span style="color:var(--gray5);font-size:12px">Por mes</span><span style="color:var(--white);font-size:12px;font-weight:600">$${monthly} USD</span></div>
+    <div class="budget-row"><span style="color:var(--gray5);font-size:12px">Por semana</span><span style="color:var(--gray4);font-size:12px">$${weekly} USD</span></div>
+    <div class="budget-hint">${urgent?"🔥 Queda poco — guardá ya":"Empezá a ahorrar"}</div>`:""}
   </div>`;
 }
 
 function buildIdeas(tripId){
   const ideas=STATE.tripIdeas?.[tripId]||[];
-  if(!ideas.length)return`<div style="font-size:12px;color:#C4B5A8;text-align:center;padding:6px 0">Nadie agregó ideas todavía</div>`;
+  if(!ideas.length)return`<div style="font-size:12px;color:var(--gray4);padding:4px 0">Sin ideas todavía</div>`;
   return ideas.map(idea=>{
     const likes=Object.values(idea.likes||{}).filter(Boolean).length;
     const myLike=idea.likes?.[myId];
-    return`<div class="idea-row"><div class="idea-text">${idea.text}</div><div class="idea-meta"><span style="font-size:11px;color:#B8A99A">${STATE.members[idea.uid]?.avatar||""} ${STATE.members[idea.uid]?.name||""}</span><button class="like-btn${myLike?" active":""}" data-action="like-idea" data-trip="${tripId}" data-idea="${idea.id}">❤️ ${likes}</button></div></div>`;
+    return`<div class="idea-row"><div class="idea-text">${idea.text}</div><div class="idea-meta"><span style="font-size:11px;color:var(--gray4)">${STATE.members[idea.uid]?.avatar||""} ${STATE.members[idea.uid]?.name||""}</span><button class="like-btn${myLike?" active":""}" data-action="like-idea" data-trip="${tripId}" data-idea="${idea.id}">❤️ ${likes}</button></div></div>`;
   }).join("");
 }
 
 function buildIdeaInput(tripId){
-  return`<div style="margin-top:8px;display:flex;flex-direction:column;gap:7px">
+  return`<div style="margin-top:8px;display:flex;flex-direction:column;gap:8px">
     <input class="app-input" id="idea-input" placeholder="Tu idea, plan o detalle..."/>
-    <div class="modal-btns"><button class="btn-cancel" style="padding:8px 12px;font-size:13px" data-action="cancel-idea">Cancelar</button><button class="btn-primary" style="padding:8px 14px;font-size:13px" data-action="submit-idea" data-trip="${tripId}">Agregar</button></div>
+    <div class="modal-btns"><button class="btn-cancel" style="padding:9px 12px;font-size:12px" data-action="cancel-idea">Cancelar</button><button class="btn-primary" style="padding:9px 14px;font-size:12px" data-action="submit-idea" data-trip="${tripId}">Agregar</button></div>
   </div>`;
 }
 
+// ── PHOTOS ────────────────────────────────────────────────────────────────────
+function buildPhotos(){
+  const photos=STATE.photos||[];
+  return`<div class="sec-label">Fotos del grupo</div>
+  <div class="upload-area" id="upload-area">
+    <span style="font-size:28px">📷</span>
+    <span style="font-size:12px;color:var(--gray5);font-weight:600;letter-spacing:.06em;text-transform:uppercase">Subir foto <span style="color:var(--accent)">+3 pts</span></span>
+    <input type="file" id="photo-input" accept="image/*" style="display:none"/>
+  </div>
+  ${!photos.length?PLACEHOLDERS.map(url=>`<div class="photo-card" style="margin-bottom:1px"><img src="${url}" class="photo-img" loading="lazy"/><div class="photo-overlay"><span style="font-size:12px;color:rgba(255,255,255,.7);font-weight:600;letter-spacing:.06em;text-transform:uppercase">Viaje anterior</span></div></div>`).join(""):""}
+  ${photos.map(p=>`<div class="photo-card" style="margin-bottom:1px"><img src="${p.url}" class="photo-img"/><div class="photo-overlay"><span style="font-size:12px;color:rgba(255,255,255,.7)">${STATE.members[p.uid]?.avatar||""} ${STATE.members[p.uid]?.name||""}</span></div></div>`).join("")}`;
+}
+
+// ── RANKING ───────────────────────────────────────────────────────────────────
+function buildRanking(){
+  const lb=Object.entries(STATE.members).sort((a,b)=>(b[1].points||0)-(a[1].points||0));
+  return`<div class="sec-label">Ranking</div>
+  <div class="pts-chips">
+    <span class="pt-chip">✈️ 1ro en confirmar +10</span>
+    <span class="pt-chip">📸 Foto +3</span>
+    <span class="pt-chip">🗳️ Votar +1</span>
+  </div>
+  ${lb.map(([id,m],i)=>`<div class="lb-row${i===0?" first":""}${id===myId?" me":""}">
+    <div style="width:24px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;color:${i===0?"var(--accent)":"var(--gray4)"};flex-shrink:0">${i===0?"01":i===1?"02":i===2?"03":`0${i+1}`}</div>
+    <div style="font-size:22px;flex-shrink:0">${m.avatar}</div>
+    <div style="flex:1;min-width:0">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--white);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.name}${id===myId?" (VOS)":""}</div>
+      ${m.cagon?`<div class="cagon-tag">👻 CAGÓN</div>`:""}
+    </div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:900;color:var(--accent);flex-shrink:0">${m.points||0}</div>
+  </div>`).join("")}`;
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
 function buildModal(){
   const editing=!!editingTrip;
   const t=editing?editingTrip:newTrip;
   return`<div class="modal-overlay" id="modal-overlay">
     <div class="modal-card">
       <div class="modal-handle"></div>
-      <div class="modal-title">${editing?"✏️ Editar viaje":"✈️ Proponer viaje"}</div>
+      <div class="modal-title">${editing?"Editar viaje":"Proponer viaje"}</div>
       <div class="input-wrap"><label class="input-label">Nombre</label><input class="app-input" data-field="name" placeholder="Ej: Fin de semana largo" value="${t.name||""}"/></div>
       <div class="input-wrap"><label class="input-label">Destino</label><input class="app-input" data-field="dest" placeholder="Ej: Mendoza" value="${t.dest||""}"/></div>
       <div class="date-row">
@@ -485,66 +438,52 @@ function buildModal(){
       <div class="input-wrap"><label class="input-label">Presupuesto p/persona (USD)</label><input class="app-input" data-field="budget" type="number" placeholder="Ej: 500" value="${t.budget||""}"/></div>
       <div class="modal-btns">
         <button class="btn-cancel" data-action="cancel-modal">Cancelar</button>
-        <button class="btn-primary" data-action="${editing?"update-trip":"submit-trip"}">${editing?"Guardar cambios":"Proponer"}</button>
+        <button class="btn-primary" data-action="${editing?"update-trip":"submit-trip"}">${editing?"GUARDAR":"PROPONER"}</button>
       </div>
     </div>
   </div>`;
 }
 
-// ── Events ────────────────────────────────────────────────────────────────────
+// ── EVENTS ────────────────────────────────────────────────────────────────────
 function bindMainEvents(){
   document.getElementById("upload-area")?.addEventListener("click",()=>document.getElementById("photo-input")?.click());
   document.getElementById("photo-input")?.addEventListener("change",e=>{
     const file=e.target.files[0];if(!file)return;
     const reader=new FileReader();
-    reader.onload=ev=>{update(s=>{s.photos.unshift({id:Date.now().toString(36),url:ev.target.result,uid:myId,caption:"",uploadedAt:Date.now()});s.members[myId].points=(s.members[myId].points||0)+3;return s;});};
+    reader.onload=ev=>{update(s=>{s.photos.unshift({id:Date.now().toString(36),url:ev.target.result,uid:myId,uploadedAt:Date.now()});s.members[myId].points=(s.members[myId].points||0)+3;return s;});};
     reader.readAsDataURL(file);
   });
   document.querySelectorAll("#main-content [data-action]").forEach(el=>el.addEventListener("click",handleAction));
 }
 
 function bindModalEvents(){
-  const fields=editingTrip?editingTrip:newTrip;
+  const fields=editingTrip||newTrip;
   document.querySelectorAll("#modal-container [data-field]").forEach(input=>{
     input.addEventListener("input",e=>{fields[e.target.dataset.field]=e.target.value;});
   });
   document.querySelectorAll("#modal-container [data-action]").forEach(el=>el.addEventListener("click",handleAction));
-  document.getElementById("modal-overlay")?.addEventListener("click",e=>{if(e.target.id==="modal-overlay"){closeModal();}});
+  document.getElementById("modal-overlay")?.addEventListener("click",e=>{if(e.target.id==="modal-overlay")closeModal();});
 }
 
 function closeModal(){showAddTrip=false;editingTrip=null;newTrip={name:"",dest:"",dateFrom:"",dateTo:"",emoji:"✈️",budget:""};renderModal();}
 
 function handleAction(){
   const action=this.dataset.action,tripId=this.dataset.trip,ideaId=this.dataset.idea;
-
   if(action==="show-add-trip"){showAddTrip=true;editingTrip=null;renderModal();}
-  else if(action==="cancel-modal"){closeModal();}
+  else if(action==="cancel-modal")closeModal();
   else if(action==="submit-trip"){
     if(!newTrip.name.trim()||!newTrip.dest.trim()||!newTrip.dateFrom)return;
     const id=Date.now().toString(36);
-    update(s=>{
-      s.trips.push({id,name:newTrip.name.trim(),dest:newTrip.dest.trim(),dateFrom:newTrip.dateFrom,dateTo:newTrip.dateTo,emoji:newTrip.emoji||"✈️",budget:newTrip.budget?parseFloat(newTrip.budget):null,confirmed:{},status:"suggestion",proposedBy:myId});
-      if(!s.tripIdeas[id])s.tripIdeas[id]=[];
-      return s;
-    });
+    update(s=>{s.trips.push({id,name:newTrip.name.trim(),dest:newTrip.dest.trim(),dateFrom:newTrip.dateFrom,dateTo:newTrip.dateTo,emoji:newTrip.emoji||"✈️",budget:newTrip.budget?parseFloat(newTrip.budget):null,confirmed:{},status:"suggestion",proposedBy:myId});if(!s.tripIdeas[id])s.tripIdeas[id]=[];return s;});
     closeModal();
   }
   else if(action==="edit-trip"){
-    const trip=STATE.trips.find(t=>t.id===tripId);
-    if(!trip)return;
-    editingTrip={...trip};
-    showAddTrip=false;
-    renderModal();
+    const trip=STATE.trips.find(t=>t.id===tripId);if(!trip)return;
+    editingTrip={...trip};showAddTrip=false;renderModal();
   }
   else if(action==="update-trip"){
-    if(!editingTrip||!editingTrip.name.trim()||!editingTrip.dest.trim())return;
-    update(s=>{
-      const idx=s.trips.findIndex(t=>t.id===editingTrip.id);
-      if(idx>=0){
-        s.trips[idx]={...s.trips[idx],name:editingTrip.name.trim(),dest:editingTrip.dest.trim(),dateFrom:editingTrip.dateFrom,dateTo:editingTrip.dateTo,emoji:editingTrip.emoji||"✈️",budget:editingTrip.budget?parseFloat(editingTrip.budget):null};
-      }
-      return s;
-    });
+    if(!editingTrip?.name.trim()||!editingTrip?.dest.trim())return;
+    update(s=>{const idx=s.trips.findIndex(t=>t.id===editingTrip.id);if(idx>=0)s.trips[idx]={...s.trips[idx],name:editingTrip.name.trim(),dest:editingTrip.dest.trim(),dateFrom:editingTrip.dateFrom,dateTo:editingTrip.dateTo,emoji:editingTrip.emoji||"✈️",budget:editingTrip.budget?parseFloat(editingTrip.budget):null};return s;});
     closeModal();
   }
   else if(action==="delete-trip"){
@@ -583,8 +522,7 @@ function doConfirm(tripId){
 
 function doVote(tripId){
   update(s=>{
-    const log=s.voteLog[myId]||[];
-    if(log.includes(tripId))return s;
+    const log=s.voteLog[myId]||[];if(log.includes(tripId))return s;
     s.voteLog[myId]=[...log,tripId];
     s.members[myId].points=(s.members[myId].points||0)+1;
     return s;
@@ -599,14 +537,11 @@ function update(fn){
   refresh();
 }
 
-// Join
 document.getElementById("join-btn").addEventListener("click",doJoin);
 document.getElementById("name-input").addEventListener("keydown",e=>{if(e.key==="Enter")doJoin();});
 function doJoin(){
-  const name=document.getElementById("name-input").value.trim();
-  if(!name)return;
-  myName=name;
-  localStorage.setItem("soltar-name",name);
+  const name=document.getElementById("name-input").value.trim();if(!name)return;
+  myName=name;localStorage.setItem("soltar-name",name);
   update(s=>{if(!s.members[myId])s.members[myId]={name,avatar:myAvatar,points:0,cagon:false,cagonTrip:null};return s;});
   document.getElementById("join-screen").style.display="none";
   document.getElementById("shell").style.display="flex";
@@ -624,15 +559,14 @@ async function init(){
   }else{
     document.getElementById("join-screen").style.display="flex";
     const count=Object.keys(STATE.members).length;
-    document.getElementById("join-meta").textContent=count>0?`${count} persona${count>1?"s":""} ya adentro 🌍`:"Sé el primero";
+    document.getElementById("join-meta").textContent=count>0?`${count} persona${count>1?"s":""} ya adentro`:"Sé el primero";
   }
 }
 init();
 
 setInterval(async()=>{
   if(document.activeElement&&["INPUT","TEXTAREA"].includes(document.activeElement.tagName))return;
-  const s=await loadState();
-  if(!s)return;
+  const s=await loadState();if(!s)return;
   const hash=JSON.stringify(s);
   if(hash!==lastHash){lastHash=hash;STATE=s;refresh();}
 },7000);
