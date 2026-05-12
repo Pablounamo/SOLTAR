@@ -461,7 +461,9 @@ function bindMainEvents(){
 function bindModalEvents(){
   const fields=editingTrip||newTrip;
   document.querySelectorAll("#modal-container [data-field]").forEach(input=>{
-    input.addEventListener("input",e=>{fields[e.target.dataset.field]=e.target.value;});
+    const update=e=>{fields[e.target.dataset.field]=e.target.value;};
+    input.addEventListener("input",update);
+    input.addEventListener("change",update);
   });
   document.querySelectorAll("#modal-container [data-action]").forEach(el=>el.addEventListener("click",handleAction));
   document.getElementById("modal-overlay")?.addEventListener("click",e=>{if(e.target.id==="modal-overlay")closeModal();});
@@ -483,7 +485,7 @@ function handleAction(){
   else if(action==="show-add-trip"){showAddTrip=true;editingTrip=null;renderModal();}
   else if(action==="cancel-modal")closeModal();
   else if(action==="submit-trip"){
-    if(!newTrip.name.trim()||!newTrip.dest.trim()||!newTrip.dateFrom)return;
+    if(!newTrip.name.trim()||!newTrip.dest.trim())return;
     const id=Date.now().toString(36);
     update(s=>{s.trips.push({id,name:newTrip.name.trim(),dest:newTrip.dest.trim(),dateFrom:newTrip.dateFrom,dateTo:newTrip.dateTo,emoji:newTrip.emoji||"✈️",budget:newTrip.budget?parseFloat(newTrip.budget):null,confirmed:{},status:"suggestion",proposedBy:myId});if(!s.tripIdeas[id])s.tripIdeas[id]=[];return s;});
     closeModal();
@@ -560,7 +562,18 @@ function doJoin(){
 
 async function init(){
   let s=await loadState();
-  STATE=s||defaultState();
+  // Merge with defaults — never overwrite existing data
+  const def=defaultState();
+  if(s){
+    s.members=s.members||def.members;
+    s.trips=s.trips||def.trips;
+    s.tripIdeas=s.tripIdeas||def.tripIdeas;
+    s.muro=s.muro||def.muro;
+    s.voteLog=s.voteLog||def.voteLog;
+  } else {
+    s=def;
+  }
+  STATE=s;
   lastHash=JSON.stringify(STATE);
   if(myName&&!STATE.members[myId]){STATE.members[myId]={name:myName,avatar:myAvatar,points:0,cagon:false,cagonTrip:null};saveState(STATE);}
   if(myName){
